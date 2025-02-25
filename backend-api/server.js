@@ -2,6 +2,11 @@ const express = require('express');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
+const documentRoutes = require("./routes/documentRoutes"); 
+const aadhaarRoutes = require("./routes/aadhaarRoutes");
+const panRoutes = require("./routes/panRoutes");
+
+
 
 dotenv.config();
 connectDB();
@@ -9,8 +14,12 @@ connectDB();
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use("/api", documentRoutes); 
+app.use("/api", aadhaarRoutes);
+app.use("/api", panRoutes);
 
 const cors = require('cors');
+
 app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 
 app.use('/api/auth', authRoutes);
